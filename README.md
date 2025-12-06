@@ -11,22 +11,7 @@ Patients with chronic conditions (diabetes, hypertension, cardiovascular disease
 
 ---
 
-## Repository Structure
-
-```
-assignment_final/
-├── README.md                    # This file - project overview
-├── use_case.md                  # Detailed use case description
-├── architecture_plan.md         # Service mapping & implementation plan
-├── architecture_diagram.png     # Visual architecture (also available as Mermaid)
-└── reflection.md                # Design reflection and alternatives
-```
-
----
-
 ## Deliverables Summary
-
-All four required components have been completed:
 
 1. **Use Case Description** (`use_case.md`)
    - Problem statement for remote patient monitoring
@@ -79,7 +64,7 @@ All four required components have been completed:
 ### Prototype (≤100 patients)
 - **Monthly**: €15-25
 - **Primary cost**: Cloud SQL db-f1-micro instance
-- **Within student budget**: ✅ Yes
+- **Within student budget**:  Yes
 
 ### Production (1,000+ patients)
 - **Monthly**: €200-400
@@ -108,20 +93,3 @@ If this design were to be implemented as Part 2 (optional prototype):
 5. Deploy to Cloud Run with CI/CD
 6. Implement first Cloud Function for data processing
 7. Load synthetic patient data for testing
-
----
-
-## Documentation Quality
-
-Each deliverable file contains:
-- Clear structure with headers and sections
-- Concrete examples tied to healthcare context
-- References to specific course assignments
-- Realistic cost and security considerations
-- Professional markdown formatting
-
-
----
-
-**Submission Status**: ✅ Part 1 Complete (Design Track)  
-**Part 2 Status**: ❌ Not Attempted (Optional Extra Credit)
