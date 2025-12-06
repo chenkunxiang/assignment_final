@@ -1,0 +1,72 @@
+graph TB
+    subgraph "Data Sources"
+        A[Patient Wearable Devices<br/>Glucose monitors, BP cuffs<br/>Smart watches, Pulse oximeters]
+        B[EHR System<br/>CSV Export<br/>Patient Master Data]
+    end
+    
+    subgraph "Frontend / Access Layer"
+        C[Flask Web Dashboard<br/>Clinician Interface]
+        D[Mobile App API Gateway<br/>Device Data Ingestion]
+    end
+    
+    subgraph "Compute Layer"
+        E[Cloud Run Container<br/>Flask Application<br/>Auto-scales 0-N]
+        F[Cloud Functions<br/>Data Processor<br/>Event-triggered]
+        G[Cloud Functions<br/>Alert Generator<br/>Scheduled every 5min]
+    end
+    
+    subgraph "Data Layer"
+        H[Cloud Storage<br/>Raw Data Lake<br/>JSON Payloads Archive]
+        I[Cloud SQL PostgreSQL<br/>Patient Master Data<br/>Demographics & Config]
+        J[Cloud SQL PostgreSQL<br/>Time-Series Vitals<br/>Indexed by timestamp]
+        K[Cloud Storage<br/>Report Archive<br/>PDF/CSV Reports]
+    end
+    
+    subgraph "Analytics / AI Layer"
+        L[BigQuery<br/>Data Warehouse<br/>Aggregated Analytics]
+        M[Vertex AI Notebook<br/>Trend Analysis<br/>ML Predictions]
+    end
+    
+    subgraph "Security & Monitoring"
+        N[Cloud IAM<br/>Role-Based Access Control<br/>Service Account Auth]
+        O[Cloud Logging & Monitoring<br/>Audit Trails<br/>Performance Metrics]
+    end
+    
+    A -->|JSON Payload via API| D
+    D -->|Store Raw Data| H
+    B -->|Upload CSV| C
+    C -->|Insert Patient Data| I
+    
+    H -->|Trigger on Write| F
+    F -->|Validate & Process| J
+    J -->|Query New Readings| G
+    G -->|Generate Alerts| J
+    
+    E -->|Read/Write Vitals| J
+    E -->|Read Patient Info| I
+    C -.->|Runs on| E
+    
+    J -->|Daily ETL Job| L
+    L -->|Query for Analysis| M
+    M -->|Store Reports| K
+    
+    N -.->|Secure Access| E
+    N -.->|Secure Access| F
+    N -.->|Secure Access| G
+    O -.->|Monitor Performance| E
+    O -.->|Monitor Execution| F
+    O -.->|Monitor Execution| G
+    
+    style A fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
+    style B fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
+    style E fill:#ffe1e1,stroke:#cc0000,stroke-width:2px
+    style F fill:#ffe1e1,stroke:#cc0000,stroke-width:2px
+    style G fill:#ffe1e1,stroke:#cc0000,stroke-width:2px
+    style H fill:#fff4e1,stroke:#cc9900,stroke-width:2px
+    style I fill:#fff4e1,stroke:#cc9900,stroke-width:2px
+    style J fill:#fff4e1,stroke:#cc9900,stroke-width:2px
+    style K fill:#fff4e1,stroke:#cc9900,stroke-width:2px
+    style L fill:#e8f5e1,stroke:#00cc00,stroke-width:2px
+    style M fill:#e8f5e1,stroke:#00cc00,stroke-width:2px
+    style N fill:#f0e6ff,stroke:#6600cc,stroke-width:2px
+    style O fill:#f0e6ff,stroke:#6600cc,stroke-width:2px
